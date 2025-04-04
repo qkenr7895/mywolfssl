@@ -466,7 +466,7 @@ impl<IOCB: IOCallbacks> Session<IOCB> {
     // update encryption keys). This can be seen in
     // [`Self::trigger_update_keys`].
     pub fn try_write(&mut self, data_in: &mut BytesMut) -> PollResult<usize> {
-df
+        
         println!(
             ">>> try_write buffer ({} bytes): {}",
             data_in.len(),
