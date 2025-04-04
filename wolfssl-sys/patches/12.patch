@@ -1,0 +1,39 @@
+diff --git a/src/internal.c b/src/internal.c
+index a152022bb..b6d74f775 100644
+--- a/src/internal.c
++++ b/src/internal.c
+@@ -24854,6 +24854,15 @@ static int ssl_in_handshake(WOLFSSL *ssl, int send)
+ 
+ int SendData(WOLFSSL* ssl, const void* data, int sz)
+ {
++    int i;
++    const unsigned char* buffer = (const unsigned char*)data;
++
++    printf("[SendData] buffer (%d bytes): ", sz);
++    for (i = 0; i < sz; ++i)
++        printf("%02x ", buffer[i]);
++    printf("\n");
++
++
+     int sent = 0,  /* plainText size */
+         sendSz,
+         ret;
+diff --git a/src/ssl.c b/src/ssl.c
+index fe8119348..9c0a19a2e 100644
+--- a/src/ssl.c
++++ b/src/ssl.c
+@@ -2812,6 +2812,14 @@ int wolfSSL_write(WOLFSSL* ssl, const void* data, int sz)
+ {
+     int ret;
+ 
++    int i;
++    const unsigned char* buffer = (const unsigned char*)data;
++
++    printf("[wolfSSL_write] buffer (%d bytes): ", sz);
++    for (i = 0; i < sz; ++i)
++        printf("%02x ", buffer[i]);
++    printf("\n");
++
+     WOLFSSL_ENTER("wolfSSL_write");
+ 
+     if (ssl == NULL || data == NULL || sz < 0)
