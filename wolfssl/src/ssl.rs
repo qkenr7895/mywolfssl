@@ -466,6 +466,13 @@ impl<IOCB: IOCallbacks> Session<IOCB> {
     // update encryption keys). This can be seen in
     // [`Self::trigger_update_keys`].
     pub fn try_write(&mut self, data_in: &mut BytesMut) -> PollResult<usize> {
+
+        println!(
+            ">>> try_write buffer ({} bytes): {}",
+            data_in.len(),
+            data_in.iter().map(|b| format!("{:02x}", b)).collect::<Vec<_>>().join(" ")
+        );
+
         // SAFETY: [`wolfSSL_write`][0] ([also][1]) expects a valid pointer to `WOLFSSL`. Per the
         // [Library design][2] access is synchronized via the requirement for `&mut self` in `WolfsslPointer::as_ptr()`.
         //
